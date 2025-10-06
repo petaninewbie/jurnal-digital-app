@@ -1,0 +1,71 @@
+<!-- File: public/index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurnal Digital SMKN 4 Jakarta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-96">
+        <h1 class="text-2xl font-bold text-center mb-6">Login Jurnal Digital</h1>
+        
+        <form id="loginForm">
+            <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Username</label>
+                <input type="text" id="username" class="w-full p-3 border rounded-lg" placeholder="Masukkan username">
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 mb-2">Password</label>
+                <input type="password" id="password" class="w-full p-3 border rounded-lg" placeholder="Masukkan password">
+            </div>
+            
+            <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700">
+                Login
+            </button>
+        </form>
+        
+        <div id="message" class="mt-4 text-center"></div>
+        
+        <div class="mt-4 text-sm text-gray-600 text-center">
+            Demo: username = <strong>admin</strong>, password = <strong>admin123</strong>
+        </div>
+    </div>
+
+    <script>
+        // Handle login form
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    messageDiv.innerHTML = '<div class="text-green-600">Login berhasil!</div>';
+                    localStorage.setItem('token', data.data.token);
+                    // Redirect ke dashboard
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html';
+                    }, 1000);
+                } else {
+                    messageDiv.innerHTML = '<div class="text-red-600">' + data.message + '</div>';
+                }
+            } catch (error) {
+                messageDiv.innerHTML = '<div class="text-red-600">Terjadi kesalahan</div>';
+            }
+        });
+    </script>
+</body>
+</html>
