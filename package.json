@@ -1,1 +1,21 @@
-{ "name": "jurnal-digital-app", "version": "1.0.0", "description": "Jurnal Digital SMKN 4 Jakarta", "type": "module", "scripts": { "dev": "vercel dev", "build": "vercel build", "deploy": "vercel --prod" }, "dependencies": { "mongodb": "^6.3.0", "bcryptjs": "^2.4.3", "jsonwebtoken": "^9.0.2", "cors": "^2.8.5" }, "engines": { "node": ">=18.0.0" } }
+{
+	"name": "jurnal-digital-app",
+	"version": "1.0.0",
+	"description": "Jurnal Digital SMKN 4 Jakarta",
+	"type": "module",
+	"scripts": {
+		"dev": "cd jurnal-digital && pnpm run dev",
+		"build": "cd jurnal-digital && pnpm run build",
+		"start": "cd jurnal-digital && pnpm run start",
+		"deploy": "vercel --prod"
+	},
+	"dependencies": {
+		"mongodb": "^6.3.0",
+		"bcryptjs": "^2.4.3",
+		"jsonwebtoken": "^9.0.2",
+		"cors": "^2.8.5"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}
